@@ -11,9 +11,17 @@ createApp({
             tempProduct: {}
         }
     },
-    mounted() {
-        axios.post(`${url}/api/user/check`).then((res) => {
-            //console.log(res.data);
+    methods: {
+        checkLogin() {
+            axios.post(`${url}/api/user/check`).then((res) => {
+                //console.log(res.data);
+                this.getProducts();
+            }).catch((error) => {
+                //console.dir(error)
+                location.href = './index.html';
+            })
+        },
+        getProducts() {
             axios.get(`${url}/api/${path}/admin/products`)
                 .then((res) => {
                     //console.log(res.data.products);
@@ -22,11 +30,10 @@ createApp({
                 .catch((error) => {
                     console.dir(error)
                 })
-
-        }).catch((error) => {
-            //console.dir(error)
-            location.href = './index.html';
-        })
+        }
+    },
+    mounted() {
+        this.checkLogin();
     }
 
 }).mount('#app')

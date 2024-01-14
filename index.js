@@ -23,11 +23,12 @@ createApp({
                     expired
                 } = res.data
                 document.cookie = `hexToken=${token};expires=${new Date(expired)};`;
-                alert("登入成功")
+                alert(res.data.message)
+                    //console.log(res)
                 location.href = './products.html';
             }).catch((error) => {
-                console.dir(error)
-                alert("帳密輸入錯誤")
+                //console.dir(error)
+                alert(error.response.data.message)
             })
         },
     },
